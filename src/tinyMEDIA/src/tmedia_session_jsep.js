@@ -715,12 +715,12 @@ tmedia_session_jsep01.prototype.__get_lo = function () {
     var This = this;
     if (!this.o_pc && !this.b_lo_held) {
 
-        var o_audio_constraints = {
+       /* var o_audio_constraints = {
             optional: []
-        };
+        };*/
 
         // temporary hardcode googAutoGainControl off
-        if (tsk_utils_get_navigator_friendly_name() == 'chrome') {
+        /*if (tsk_utils_get_navigator_friendly_name() == 'chrome') {
           o_audio_constraints['optional'].push(
             { googAutoGainControl: false },
             { googAutoGainControl2: false },
@@ -728,11 +728,11 @@ tmedia_session_jsep01.prototype.__get_lo = function () {
             { googEchoCancellation2: false },
             { googNoiseSuppression: false },
             { googNoiseSuppression2: false },
-            //{ googTypingNoiseDetection: false },
+            { googTypingNoiseDetection: false },
             { googHighpassFilter: false },
             { googAudioMirroring: false }
            );
-        }
+        }*/
 
         var o_video_constraints = {
             mandatory: {},
@@ -809,7 +809,8 @@ tmedia_session_jsep01.prototype.__get_lo = function () {
                 this.o_mgr.callback(tmedia_session_events_e.STREAM_LOCAL_REQUESTED, this.e_type);
                 navigator.getUserMedia(
                         {
-                            audio: (this.e_type == tmedia_type_e.SCREEN_SHARE) ? false : !!(this.e_type.i_id & tmedia_type_e.AUDIO.i_id) ? o_audio_constraints : false,
+                            //audio: (this.e_type == tmedia_type_e.SCREEN_SHARE) ? false : !!(this.e_type.i_id & tmedia_type_e.AUDIO.i_id) ? o_audio_constraints : false,
+                            audio: (this.e_type == tmedia_type_e.SCREEN_SHARE) ? false : !!(this.e_type.i_id & tmedia_type_e.AUDIO.i_id),
                             video: !!(this.e_type.i_id & tmedia_type_e.VIDEO.i_id) ? o_video_constraints : false, // "SCREEN_SHARE" contains "VIDEO" flag -> (VIDEO & SCREEN_SHARE) = VIDEO
                             data: false
                         },
